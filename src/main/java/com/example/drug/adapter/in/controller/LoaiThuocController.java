@@ -1,9 +1,11 @@
 package com.example.drug.adapter.in.controller;
 
 import com.example.drug.adapter.in.dto.request.loaithuoc.CreateLoaiThuocRequest;
+import com.example.drug.adapter.in.dto.request.loaithuoc.DeleteLoaiThuocRequest;
 import com.example.drug.adapter.in.dto.request.loaithuoc.UpdateLoaiThuocRequest;
 import com.example.drug.adapter.in.dto.response.ApiResponse;
 import com.example.drug.application.port.in.loaithuoc.CreateLoaiThuocUseCase;
+import com.example.drug.application.port.in.loaithuoc.DeleteLoaiThuocUseCase;
 import com.example.drug.application.port.in.loaithuoc.UpdateLoaiThuocUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -16,6 +18,7 @@ public class LoaiThuocController {
 
     private final CreateLoaiThuocUseCase createLoaiThuocUseCase;
     private final UpdateLoaiThuocUseCase updateLoaiThuocUseCase;
+    private final DeleteLoaiThuocUseCase deleteLoaiThuocUseCase;
 
     @PostMapping
     public ApiResponse<?> create(@RequestBody CreateLoaiThuocRequest createLoaiThuocRequest) {
@@ -25,5 +28,10 @@ public class LoaiThuocController {
     @PutMapping
     public ApiResponse<?> update(@RequestBody UpdateLoaiThuocRequest updateLoaiThuocRequest) {
         return ApiResponse.success(updateLoaiThuocUseCase.updateLoaiThuoc(updateLoaiThuocRequest.toCommand()));
+    }
+
+    @DeleteMapping
+    public ApiResponse<?> delete(@RequestBody DeleteLoaiThuocRequest deleteLoaiThuocRequest) {
+        return ApiResponse.success(deleteLoaiThuocUseCase.deleteLoaiThuoc(deleteLoaiThuocRequest.getId()));
     }
 }

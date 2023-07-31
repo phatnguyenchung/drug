@@ -2,6 +2,7 @@ package com.example.drug.application.service;
 
 import com.example.drug.application.port.in.loaithuoc.*;
 import com.example.drug.application.port.out.loaithuoc.CreateLoaiThuoc;
+import com.example.drug.application.port.out.loaithuoc.DeleteLoaiThuoc;
 import com.example.drug.application.port.out.loaithuoc.UpdateLoaiThuoc;
 import com.example.drug.common.UseCase;
 import com.example.drug.domain.LoaiThuoc;
@@ -11,10 +12,11 @@ import javax.transaction.Transactional;
 
 @UseCase
 @RequiredArgsConstructor
-public class LoaiThuocService implements CreateLoaiThuocUseCase, UpdateLoaiThuocUseCase {
+public class LoaiThuocService implements CreateLoaiThuocUseCase, UpdateLoaiThuocUseCase, DeleteLoaiThuocUseCase {
 
     private final CreateLoaiThuoc createLoaiThuoc;
     private final UpdateLoaiThuoc updateLoaiThuoc;
+    private final DeleteLoaiThuoc deleteLoaiThuoc;
 
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
@@ -59,5 +61,11 @@ public class LoaiThuocService implements CreateLoaiThuocUseCase, UpdateLoaiThuoc
                 .build();
         updateLoaiThuoc.updateLoaiThuoc(loaiThuoc);
         return UpdateLoaiThuocCommandResult.builder().status(true).build();
+    }
+
+    @Override
+    public DeleteLoaiThuocCommandResult deleteLoaiThuoc(Long stt) {
+        deleteLoaiThuoc.deleteLoaiThuoc(stt);
+        return DeleteLoaiThuocCommandResult.builder().status(true).build();
     }
 }

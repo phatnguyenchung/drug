@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoaiThuocJpaRepository extends JpaRepository<LoaiThuocJpaEntity, Long>, JpaSpecificationExecutor<LoaiThuocJpaEntity> {
+
+
 }
