@@ -1,9 +1,8 @@
 package com.example.drug.application.service;
 
-import com.example.drug.application.port.in.loaithuoc.CreateLoaiThuocCommand;
-import com.example.drug.application.port.in.loaithuoc.CreateLoaiThuocCommandResult;
-import com.example.drug.application.port.in.loaithuoc.CreateLoaiThuocUseCase;
+import com.example.drug.application.port.in.loaithuoc.*;
 import com.example.drug.application.port.out.loaithuoc.CreateLoaiThuoc;
+import com.example.drug.application.port.out.loaithuoc.UpdateLoaiThuoc;
 import com.example.drug.common.UseCase;
 import com.example.drug.domain.LoaiThuoc;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +11,10 @@ import javax.transaction.Transactional;
 
 @UseCase
 @RequiredArgsConstructor
-public class LoaiThuocService implements CreateLoaiThuocUseCase {
+public class LoaiThuocService implements CreateLoaiThuocUseCase, UpdateLoaiThuocUseCase {
 
     private final CreateLoaiThuoc createLoaiThuoc;
+    private final UpdateLoaiThuoc updateLoaiThuoc;
 
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
@@ -36,5 +36,28 @@ public class LoaiThuocService implements CreateLoaiThuocUseCase {
                 .build();
         createLoaiThuoc.saveLoaiThuoc(loaiThuoc);
         return CreateLoaiThuocCommandResult.builder().status(true).build();
+    }
+
+    @Override
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public UpdateLoaiThuocCommandResult updateLoaiThuoc(UpdateLoaiThuocCommand updateLoaiThuocCommand) {
+        LoaiThuoc loaiThuoc = LoaiThuoc.builder()
+                .stt(updateLoaiThuocCommand.getStt())
+                .maloaithuoc(updateLoaiThuocCommand.getMaloaithuoc())
+                .tentheobh(updateLoaiThuocCommand.getTentheobh())
+                .sodangky(updateLoaiThuocCommand.getSodangky())
+                .giatribaohiemchitra(updateLoaiThuocCommand.getGiatribaohiemchitra())
+                .hoatchat(updateLoaiThuocCommand.getHoatchat())
+                .mahoatchat(updateLoaiThuocCommand.getMahoatchat())
+                .hamluong(updateLoaiThuocCommand.getHamluong())
+                .duongdung(updateLoaiThuocCommand.getDuongdung())
+                .lastend(updateLoaiThuocCommand.isLastend())
+                .hangsanxuat(updateLoaiThuocCommand.getHangsanxuat())
+                .nuocsanxuat(updateLoaiThuocCommand.getNuocsanxuat())
+                .donvichinh(updateLoaiThuocCommand.getDonvichinh())
+                .hotrilieu(updateLoaiThuocCommand.getHotrilieu())
+                .build();
+        updateLoaiThuoc.updateLoaiThuoc(loaiThuoc);
+        return UpdateLoaiThuocCommandResult.builder().status(true).build();
     }
 }
