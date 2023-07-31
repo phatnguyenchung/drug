@@ -2,6 +2,7 @@ package com.example.drug.application.service;
 
 import com.example.drug.application.port.in.thuoc.*;
 import com.example.drug.application.port.out.thuoc.CreateThuoc;
+import com.example.drug.application.port.out.thuoc.DeleteThuoc;
 import com.example.drug.application.port.out.thuoc.UpdateThuoc;
 import com.example.drug.common.UseCase;
 import com.example.drug.domain.Thuoc;
@@ -11,10 +12,11 @@ import javax.transaction.Transactional;
 
 @UseCase
 @RequiredArgsConstructor
-public class ThuocService implements CreateThuocUseCase, UpdateThuocUseCase {
+public class ThuocService implements CreateThuocUseCase, UpdateThuocUseCase, DeleteThuocUseCase {
 
     private final CreateThuoc createThuoc;
     private final UpdateThuoc updateThuoc;
+    private final DeleteThuoc deleteThuoc;
 
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
@@ -41,5 +43,11 @@ public class ThuocService implements CreateThuocUseCase, UpdateThuocUseCase {
                 .build();
         updateThuoc.updateThuoc(thuoc);
         return UpdateThuocCommandResult.builder().status(true).build();
+    }
+
+    @Override
+    public DeleteThuocCommandResult deleteThuoc(DeleteThuocCommand command) {
+        deleteThuoc.deleteThoc(command.getStt());
+        return DeleteThuocCommandResult.builder().status(true).build();
     }
 }
