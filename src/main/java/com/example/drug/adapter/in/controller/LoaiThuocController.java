@@ -32,6 +32,6 @@ public class LoaiThuocController {
 
     @DeleteMapping
     public ApiResponse<?> delete(@RequestBody DeleteLoaiThuocRequest deleteLoaiThuocRequest) {
-        return ApiResponse.success(deleteLoaiThuocUseCase.deleteLoaiThuoc(deleteLoaiThuocRequest.getId()));
+        return ApiResponse.success(deleteLoaiThuocUseCase.deleteLoaiThuoc(deleteLoaiThuocRequest.toCommand()));
     }
 }

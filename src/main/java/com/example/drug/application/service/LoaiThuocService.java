@@ -64,8 +64,8 @@ public class LoaiThuocService implements CreateLoaiThuocUseCase, UpdateLoaiThuoc
     }
 
     @Override
-    public DeleteLoaiThuocCommandResult deleteLoaiThuoc(Long stt) {
-        deleteLoaiThuoc.deleteLoaiThuoc(stt);
+    public DeleteLoaiThuocCommandResult deleteLoaiThuoc(DeleteLoaiThuocCommand deleteLoaiThuocCommand) {
+        deleteLoaiThuoc.deleteLoaiThuoc(deleteLoaiThuocCommand.getStt());
         return DeleteLoaiThuocCommandResult.builder().status(true).build();
     }
 }
